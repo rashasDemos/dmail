@@ -176,6 +176,7 @@ export const Notepad: NextPage<NotepadProps> = ({
     setDist(dist + 1)
     let cPushArray = [...history];
     cPushArray.push(canvas.toDataURL());
+    
     setHistory(cPushArray);
   }
   const [ig, setImage] = useState<HTMLImageElement>();
