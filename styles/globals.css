@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Inika');
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Inika;
+    background: #D3FFE2;
+
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
