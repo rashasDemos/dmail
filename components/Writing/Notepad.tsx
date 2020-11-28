@@ -231,7 +231,14 @@ export const Notepad: NextPage<NotepadProps> = ({
     canvas.getContext("2d").strokeStyle = bw;
   }, [bw]);
 
+  useEffect(() => {
+    document.onscroll = painting && disableScroll
+  })
 
+  const disableScroll = (e) => {
+    e = e || window.event
+    painting && e.preventDefault();
+  }
 
   return (
     <Box
@@ -317,11 +324,11 @@ export const Notepad: NextPage<NotepadProps> = ({
         
         <canvas
           onMouseEnter={() => tool === "brush" && setHoved(true)}
-      
+ 
           onMouseLeave={() => tool === "brush" && setHoved(false)}
 
           onMouseDown={() => tool === "brush" && setPainting(true)}
-          onTouchStart={() => tool === 'brush' && setPainting(true)}
+          onTouchStart={() => tool === 'brush' && (setPainting(true))}
           
           onMouseUp={() => tool === "brush" && turnOff()}
           onTouchEnd={() => tool === 'brush' && turnOff()}
@@ -337,6 +344,7 @@ export const Notepad: NextPage<NotepadProps> = ({
             boxSizing: "border-box",
             cursor: tool === "brush" ? "none" : tool === "text" && "text",
             zIndex: 5,
+            touchAction: 'none'
            
           }}
         ></canvas>

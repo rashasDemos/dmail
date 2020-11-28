@@ -79,11 +79,12 @@ useEffect(() => {
 
             }}>
               <Box sx={{
-                  height: '40%',
+                  height: ['initial','initial','40%'],
                   display: 'flex',
                   justifyContent: ['center','center','space-between'],
                   alignItems: 'center',
-                  transform: 'scale(0.9)'
+                  transform: ['scale(0.8) translateX(10vw)','scale(0.8) translateX(10vw)','scale(1) translateX(0vw)'],
+                  px: 40
               }}>
   <Recepient sTRN={setTypeRecName} sTRE={setTypeRecEmail} rec={rec} sender={sender}/>
     <Box onClick={() => setStamped(true)} sx={{
