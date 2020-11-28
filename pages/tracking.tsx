@@ -66,7 +66,9 @@ export const tracking: NextPage<trackingProps> = ({}) => {
                 fontWeight: 800,
               }}
             >
-              {`Hello, ${docu.sender}!`}
+              {
+                //@ts-ignore
+              `Hello, ${docu.sender}!`}
             </Box>
             <Box
               sx={{
@@ -82,7 +84,10 @@ export const tracking: NextPage<trackingProps> = ({}) => {
                 fontWeight: 800,
               }}
             >
-              {docu.date && `You submitted this delivery on, ${docu.date[0] + docu.date[1] + '-' + docu.date[2] + docu.date[3]}.`}
+              
+              {
+                //@ts-ignore
+              docu.date && `You submitted this delivery on, ${docu.date[0] + docu.date[1] + '-' + docu.date[2] + docu.date[3]}.`}
             </Box>
             <Box
               sx={{
@@ -98,7 +103,9 @@ export const tracking: NextPage<trackingProps> = ({}) => {
                 fontWeight: 800,
               }}
             >
-              {docu.sType === 'done' ? `This delivery has been emailed and sent!` : `Oh no, we still are working on this delivery`}
+              {
+                //@ts-ignore
+              docu.sType === 'done' ? `This delivery has been emailed and sent!` : `Oh no, we still are working on this delivery`}
             </Box></>}
            </Box>
         </Layout>;
