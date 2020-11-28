@@ -293,6 +293,8 @@ export const Notepad: NextPage<NotepadProps> = ({
           mb: 100,
           display: "flex",
           flexDirection: "column",
+
+          touchAction: 'none',
          
           alignItems: "center",
           zIndex: 0
@@ -344,7 +346,6 @@ export const Notepad: NextPage<NotepadProps> = ({
             boxSizing: "border-box",
             cursor: tool === "brush" ? "none" : tool === "text" && "text",
             zIndex: 5,
-            touchAction: 'none'
            
           }}
         ></canvas>
