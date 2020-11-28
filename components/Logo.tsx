@@ -16,8 +16,15 @@ export const Logo: NextPage<LogoProps> = ({fontSize = 64, text, caption}) => {
             textAlign: 'center',
             color: '#D26161',
            
+           
         }}>
-           <Link href="/"><a> {text}</a></Link>
-            {caption && <><br /><h6 style={{fontSize: '1rem', color: "black"}}>{caption}</h6></>}
+           <Link href="/"><Box as="a" sx={{
+                ":hover":{
+                    borderBottom: '10px solid #D26161 ',
+                    borderRadius: 10,
+                    cursor: 'pointer'
+                }
+           }}> {text}</Box></Link>
+            {caption && <><br /><h6 style={{fontSize: '1rem', color: "black", width: '50%', margin: '20px auto'}}>{caption}</h6></>}
         </Box>;
 }

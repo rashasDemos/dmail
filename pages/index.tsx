@@ -6,6 +6,7 @@ import { Layout } from "../components/Layout";
 import { Logo } from "../components/Logo";
 import { Card } from "../components/Card";
 import Image from "next/image";
+import Link from "next/link";
 interface indexProps {
   router: Object[];
 }
@@ -14,6 +15,18 @@ export const index: NextPage<indexProps> = ({ router }) => {
   return (
     <Layout>
       <Logo text="D-Mail" fontSize={144} />
+      <Link href="/tracking"><a>  <Box sx={{
+        width: '100%',
+        margin: '0 auto',
+        display: 'flex',
+        textAlign: 'center',
+        justifyContent: 'center',
+        fontSize: '1.3rem',
+        mt: 10,
+        cursor: 'pointer'
+      }}>
+        Track an Order
+      </Box></a></Link>
       <Box
         sx={{
           width: ["80vw", "100vw", "90vw", "80vw", "80vw"],

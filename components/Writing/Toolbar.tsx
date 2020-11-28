@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {NextPage} from 'next'
 import { Box } from 'rebass';
 import { Label, Input,Slider } from "@rebass/forms";
@@ -20,7 +20,16 @@ interface ToolbarProps {
 
 export const Toolbar: NextPage<ToolbarProps> = ({clearCanvas,undo,redo,width,sliderChange,setBW,bw, setTool, tool, tv,sTV}) => {
     const [more,setMore] = useState<boolean>()
+    const [rot ,setRot] = useState<boolean>()
+    useEffect(() => {
+      document.onscroll = scrollCheck
+    },)
 
+    function scrollCheck(e) {
+      e = e || window.event
+      console.log(e)
+      e.target.scrollingElement.scrollTop > 50 ? setRot(true) : setRot(false)
+    }
     function changeText(e){
         sTV(e.target.value)
     }
@@ -29,11 +38,13 @@ export const Toolbar: NextPage<ToolbarProps> = ({clearCanvas,undo,redo,width,sli
         return <Box width="251px" backgroundColor="#D26161" sx={{
             borderRadius: '0px 0px 8px 8px',
             padding: 10,
-            position: 'absolute',
+            position: 'fixed',
             top: 180,
             left: 198,
             zIndex: 10,
-            color: "white"
+            color: "white",
+            transform: rot ? 'rotate(-90deg) translateY(-16.5vh) translateX(-16.5vh)' : '',
+            transition: 'all 700ms ease-in-out'
            
         }}>
             <Box width="100%" height="100%" display="flex" sx={{

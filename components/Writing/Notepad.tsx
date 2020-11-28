@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { NextPage } from "next";
 import { Box } from "rebass";
+import {Label} from '@rebass/forms';
 import Image from "next/image";
 import { Toolbar } from "./Toolbar";
 import {Image as Im, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
@@ -207,6 +208,11 @@ export const Notepad: NextPage<NotepadProps> = ({
         textAlign: "center",
       }}
     >
+     <Box onClick={() => submit()}>
+     <Label>
+      Submit Letter
+      </Label>
+     </Box>
       {tool === "brush" && (
         <Box
           sx={{
@@ -257,7 +263,7 @@ export const Notepad: NextPage<NotepadProps> = ({
           {send[0][0].toUpperCase() + send[0].substr(1, send[0].length - 1)}.
           This letter was sent to you by {/* @ts-ignore */}
           {rec[0][0].toUpperCase() + rec[0].substr(1, rec[0].length - 1)} using
-          Digital Mail. Click here for more information. {dist + ''}
+          Digital Mail. Click here for more information. 
         </Box>
         <Box
           sx={{
