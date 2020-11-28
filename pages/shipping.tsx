@@ -60,14 +60,15 @@ export const shipping: NextPage<shippingProps> = ({
       <Logo text="d-Mail" />
       <Box
         sx={{
-          width: "860px",
+          width: ["490px","640px","860px"],
           height: "50vh",
           display: "flex",
           justifyContent: 'center',
+          flexDirection: ['column','column','row'],
           margin: '100px auto'
         }}
       >
-        <Box sx={{ width: "70%", flexDirection: "column" }}>
+        <Box sx={{ width: ["initial","initial","70%"], flexDirection: "column" }}>
           {/* shipping options <br />
                     transaction id: {id}<br />
                     from: {rec[0]} {`=>`} {rec[1]}<br />

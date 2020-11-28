@@ -19,8 +19,11 @@ export const thankyou: NextPage<thankyouProps> = ({url,rec, id}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
                 fontWeight: 700,
-                fontSize: '2rem',
-                background: '#3ac899'
+                fontSize: ['1rem','1.5rem','2rem'],
+                background: '#3ac899',
+                padding: 20,
+                width: '80%',
+                margin: '0 auto'
             }}>{id} </Box>
         </Layout>;
 }

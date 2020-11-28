@@ -4,6 +4,7 @@ import { Layout } from '../components/Layout';
 import { Logo } from '../components/Logo';
 import {Label, Input} from '@rebass/forms';
 import { Box, Button } from 'rebass';
+import Image from 'next/image';
 
 interface trackingProps {
 
@@ -13,11 +14,12 @@ export const tracking: NextPage<trackingProps> = ({}) => {
  
         const [tracking,setTracking] = useState<string>('')
         const [loading,setLoading] = useState(true)
-        const [docu,setDocu] = useState<Object[]>([])
+        const [docu,setDocu] = useState([])
+        const [url, setURL] = useState<string>()
         function changeText(e){
             setTracking(e.target.value)
         } 
-
+      
         const submit = async () => {
 
         
@@ -25,7 +27,7 @@ export const tracking: NextPage<trackingProps> = ({}) => {
             const file = await res.json();
             setLoading(false);
             setDocu(file);
-            
+            setURL(file.image_url);
             console.log(file)
            
           }
@@ -106,6 +108,20 @@ export const tracking: NextPage<trackingProps> = ({}) => {
               {
                 //@ts-ignore
               docu.sType === 'done' ? `This delivery has been emailed and sent!` : `Oh no, we still are working on this delivery`}
+            </Box><Box
+              sx={{
+         
+               
+               marginTop: 10,
+                borderRadius: 13,
+                display: "flex",
+                textAlign: "center",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: 800,
+              }}
+            >
+           {url &&  <Image src={url} height="100%" width="100%" alt="" />}
             </Box></>}
            </Box>
         </Layout>;

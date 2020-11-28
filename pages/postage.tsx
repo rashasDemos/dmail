@@ -63,7 +63,8 @@ useEffect(() => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                flexDirection: 'column'
+                flexDirection: 'column',
+                // transform: ['translateX(80vw)','translateX(80vw)','translateX(0vw)','translateX(0vw)','translateX(0vw)']
             }}>
                 <Logo text="D-Mail" />
             <Box sx={{
@@ -80,7 +81,9 @@ useEffect(() => {
               <Box sx={{
                   height: '40%',
                   display: 'flex',
-                  justifyContent: 'space-between'
+                  justifyContent: ['center','center','space-between'],
+                  alignItems: 'center',
+                  transform: 'scale(0.9)'
               }}>
   <Recepient sTRN={setTypeRecName} sTRE={setTypeRecEmail} rec={rec} sender={sender}/>
     <Box onClick={() => setStamped(true)} sx={{

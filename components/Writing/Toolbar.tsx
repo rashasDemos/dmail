@@ -39,12 +39,12 @@ export const Toolbar: NextPage<ToolbarProps> = ({clearCanvas,undo,redo,width,sli
             borderRadius: '0px 0px 8px 8px',
             padding: 10,
             position: 'fixed',
-            top: 180,
-            left: 198,
+            top: 0,
+            left: 0,
             zIndex: 10,
             color: "white",
-            transform: rot ? 'rotate(-90deg) translateY(-16.5vh) translateX(-16.5vh)' : '',
-            transition: 'all 700ms ease-in-out'
+            transform: rot ? more ? 'rotate(0deg) translateY(0.5vh) translateX(0.5vh)' : 'rotate(-90deg) translateY(-14.5vh) translateX(-16.5vh)' : '',
+            transition: 'all 300ms ease-in-out 200ms'
            
         }}>
             <Box width="100%" height="100%" display="flex" sx={{

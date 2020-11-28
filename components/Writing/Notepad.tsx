@@ -4,8 +4,7 @@ import { Box } from "rebass";
 import {Label} from '@rebass/forms';
 import Image from "next/image";
 import { Toolbar } from "./Toolbar";
-import {Image as Im, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
-import {Cloudinary} from 'cloudinary-core';
+import { addResizeListener, removeResizeListener } from 'detect-resize'
 
 interface NotepadProps {
   thisd?: any;
@@ -38,6 +37,14 @@ export const Notepad: NextPage<NotepadProps> = ({
     document.onkeydown = keyCheck;
   });
 
+  function is_touch_device4() {
+    return !!('ontouchstart' in window        // works on most browsers 
+  || navigator.maxTouchPoints); 
+}
+
+
+
+
   const mousemover = (e) => {
     e = e || window.event;
     let k = new Array();
@@ -65,6 +72,11 @@ export const Notepad: NextPage<NotepadProps> = ({
     }
   }
 
+
+
+  const [iW,setIW] = useState(0);
+  const [iH,setIH] = useState(0);
+
   function turnOff() {
     setPainting(false);
     const c: any = document && document.querySelector("#canvas");
@@ -77,6 +89,10 @@ export const Notepad: NextPage<NotepadProps> = ({
     console.log(history);
   }
 
+   // Assume canvas is in scope
+
+
+ 
   async function undo() {
    if (dist > 0) {
     const c: any = document && document.querySelector("#canvas");
@@ -95,7 +111,10 @@ export const Notepad: NextPage<NotepadProps> = ({
    }
   }
 
-
+  useEffect(() =>
+  {
+    console.log(is_touch_device4())
+  },[]  )
   async function redo() {
    if (dist < history.length - 1 && dist >= 0) {
     const c: any = document && document.querySelector("#canvas");
@@ -134,6 +153,22 @@ export const Notepad: NextPage<NotepadProps> = ({
     })
   }
 
+  useEffect(() => {
+
+    const doIt = setInterval(() => {
+      window && window.innerWidth !== iW && resized();
+      window && window.innerHeight !== iH && resized();
+    },300)
+    doIt;
+  },[])
+
+
+  const resized = async () => {
+    const w: any = window && window.innerWidth;
+    const h: any = window && window.innerHeight;
+    setIH(h)
+    setIW(w)
+  }
 
   const clearCanvas = async () => {
     const canvas: any = document && document.querySelector("#canvas");
@@ -153,10 +188,11 @@ export const Notepad: NextPage<NotepadProps> = ({
 
   function draw(e) {
     e = e || window.event;
+   
     const canvas: any = document && document.querySelector("#canvas");
     const rect = canvas.getBoundingClientRect();
-    let x = (e.clientX - rect.left);
-    let y = (e.clientY - rect.top);
+    let x = is_touch_device4() ? (e.touches && e.touches[0].clientX - rect.left) :  (e.clientX - rect.left);
+    let y = is_touch_device4() ? (e.touches && e.touches[0].clientY - rect.top) : (e.clientY - rect.top);
     if (!painting) return;
  
     ctx.lineWidth = width > 0 ? width * Math.pow(2, 1 / width) : 2;
@@ -172,7 +208,7 @@ export const Notepad: NextPage<NotepadProps> = ({
     var context = canvas.getContext("2d");
     const rect = canvas.getBoundingClientRect();
     context.fillStyle = bw;
-    context.font = "bold 18px Inika";
+    context.font = "bold 20px Inika";
     context.fillText(textVal, e.clientX - rect.left, e.clientY - rect.top);
     setDist(dist + 1)
     let cPushArray = [...history];
@@ -208,9 +244,15 @@ export const Notepad: NextPage<NotepadProps> = ({
         textAlign: "center",
       }}
     >
-     <Box onClick={() => submit()}>
+     <Box onClick={() => submit()} sx={{
+       padding: 3,
+       background: '#D36060',
+       mb: 3,
+       borderRadius: 5,
+       color: "white"
+     }}>
      <Label>
-      Submit Letter
+      Submit Letter 
       </Label>
      </Box>
       {tool === "brush" && (
@@ -232,8 +274,8 @@ export const Notepad: NextPage<NotepadProps> = ({
       <Toolbar bw={bw} clearCanvas={clearCanvas} redo={redo} width={width} undo={undo} sliderChange={sliderChange} setBW={setBW} tool={tool} setTool={setTool} tv={textVal} sTV={setTV} />
       <Box
         sx={{
-          width: 1110,
-          height: 1616,
+          width: iW - 30,
+          height: iH * 1.5,
           borderRadius: 12,
           margin: "0 auto",
           background: 'linear-gradient(112.3deg, #FFFDCE 35.46%, #FFECBB 96.36%)    ',
@@ -244,13 +286,13 @@ export const Notepad: NextPage<NotepadProps> = ({
           mb: 100,
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+         
           alignItems: "center",
           zIndex: 0
         }}
       >
-         <Box sx={{position: "absolute", top: 202, left: 328, zIndex: 3}}>
-         <Image id="ok" src="/lines.svg" width="785px" height="852px" alt="lines" />
+         <Box sx={{transform: `translateY(${iW/35}vh)`, zIndex: 3, position: "absolute"}}>
+         <Image id="ok" src="/lines.svg" width={typeof window !== 'undefined' ? window.innerWidth + 200 : 0} height="852px" alt="lines" />
          
          </Box>
         <Box
@@ -272,22 +314,33 @@ export const Notepad: NextPage<NotepadProps> = ({
           }}
         ></Box>
        
+        
         <canvas
           onMouseEnter={() => tool === "brush" && setHoved(true)}
+      
           onMouseLeave={() => tool === "brush" && setHoved(false)}
+
           onMouseDown={() => tool === "brush" && setPainting(true)}
+          onTouchStart={() => tool === 'brush' && setPainting(true)}
+          
           onMouseUp={() => tool === "brush" && turnOff()}
+          onTouchEnd={() => tool === 'brush' && turnOff()}
+
           onMouseMove={(e) => tool === "brush" && draw(e)}
+          onTouchMove={(e) => tool === 'brush' && draw(e)}
+
           onClick={(e) => tool === "text" && drawText(e)}
           id="canvas"
-          width="1000px"
-          height="1450px"
+          width={iW - 30}
+          height={iH  * 1.5}
           style={{
             boxSizing: "border-box",
             cursor: tool === "brush" ? "none" : tool === "text" && "text",
-            zIndex: 5
+            zIndex: 5,
+           
           }}
         ></canvas>
+       
       </Box>
     </Box>
   );
