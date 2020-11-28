@@ -121,7 +121,7 @@ export const tracking: NextPage<trackingProps> = ({}) => {
                 fontWeight: 800,
               }}
             >
-           {url &&  <Image src={url} height="100%" width="100%" alt="" />}
+           {url &&  <Image src={url} height="300px" width="250px" alt="" />}
             </Box></>}
            </Box>
         </Layout>;

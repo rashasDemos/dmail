@@ -345,7 +345,7 @@ export const Notepad: NextPage<NotepadProps> = ({
           style={{
             boxSizing: "border-box",
             cursor: tool === "brush" ? "none" : tool === "text" && "text",
-            zIndex: 5,
+            zIndex: 5
            
           }}
         ></canvas>

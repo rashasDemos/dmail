@@ -53,7 +53,7 @@ useEffect(() => {
            
             query: { send: sender, rec: rec },
           })
-    },5000)
+    },2000)
 },[stamped])
 
         return <Layout>
