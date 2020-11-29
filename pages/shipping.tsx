@@ -57,10 +57,10 @@ export const shipping: NextPage<shippingProps> = ({
   const [shippingType, setType] = useState<boolean>();
   return (
     <Layout>
-      <Logo text="d-Mail" />
+      <Logo text="D-Mail" />
       <Box
         sx={{
-          width: ["490px","640px","860px"],
+          width: ["initial","640px","860px"],
           height: "50vh",
           display: "flex",
           justifyContent: 'center',

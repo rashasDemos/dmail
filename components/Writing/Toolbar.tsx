@@ -15,15 +15,25 @@ interface ToolbarProps {
     tool: string;
     setTool: (string) => void;
     tv: string;
+    font: number;
+    setFont: (number)=> void;
     sTV: (string) => void;
 }
 
-export const Toolbar: NextPage<ToolbarProps> = ({clearCanvas,undo,redo,width,sliderChange,setBW,bw, setTool, tool, tv,sTV}) => {
+export const Toolbar: NextPage<ToolbarProps> = ({clearCanvas,undo,redo,width,sliderChange,setBW,bw, font, setFont, setTool, tool, tv,sTV}) => {
     const [more,setMore] = useState<boolean>()
     const [rot ,setRot] = useState<boolean>()
+
+    const inputRef = useRef();
     useEffect(() => {
       document.onscroll = scrollCheck
     },)
+
+    useEffect(() => {
+      setMore(true);
+      //@ts-ignore
+      inputRef.current && inputRef.current.focus();
+    },[])
 
     function scrollCheck(e) {
       e = e || window.event
@@ -32,6 +42,11 @@ export const Toolbar: NextPage<ToolbarProps> = ({clearCanvas,undo,redo,width,sli
     }
     function changeText(e){
         sTV(e.target.value)
+    }
+
+    function textSizeChange(e){
+      e.preventDefault();
+      setFont(e.target.value)
     }
 
 
@@ -70,7 +85,14 @@ export const Toolbar: NextPage<ToolbarProps> = ({clearCanvas,undo,redo,width,sli
             value={width}
             onChange={(e) => sliderChange(e)}
           /> </>}
-          {tool === 'text' && <><Label>Text Content</Label><Input value={tv} onChange={(e) => changeText(e)}></Input></>}
+          {tool === 'text' && <><Label>Text Content</Label><input ref={inputRef} value={tv} onChange={(e) => changeText(e)}></input><Label htmlFor="percent">Text Size <span style={{opacity:0.5, marginLeft: 10}}>{width}</span></Label>
+          <Slider
+            id="percent"
+            name="percent"
+            defaultValue={font}
+            value={font}
+            onChange={(e) => textSizeChange(e)}
+          /> </>}
         
           <Box
             display="flex"

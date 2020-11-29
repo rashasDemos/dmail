@@ -26,6 +26,7 @@ export const Notepad: NextPage<NotepadProps> = ({
   const [history, setHistory] = useState<any>([]);
   const [dist, setDist] = useState<number>(-1);
   const [textVal, setTV] = useState<string>('Change This Text');
+  const [font,setFont] = useState<number>(20);
 
   useEffect(() => {
     const canvas: any = document && document.querySelector("#canvas");
@@ -208,7 +209,7 @@ export const Notepad: NextPage<NotepadProps> = ({
     var context = canvas.getContext("2d");
     const rect = canvas.getBoundingClientRect();
     context.fillStyle = bw;
-    context.font = "bold 20px Inika";
+    context.font = `bold ${font}px Inika`;
     context.fillText(textVal, e.clientX - rect.left, e.clientY - rect.top);
     setDist(dist + 1)
     let cPushArray = [...history];
@@ -278,7 +279,7 @@ export const Notepad: NextPage<NotepadProps> = ({
           }}
         ></Box>
       )}
-      <Toolbar bw={bw} clearCanvas={clearCanvas} redo={redo} width={width} undo={undo} sliderChange={sliderChange} setBW={setBW} tool={tool} setTool={setTool} tv={textVal} sTV={setTV} />
+      <Toolbar bw={bw} clearCanvas={clearCanvas} redo={redo} width={width} undo={undo} sliderChange={sliderChange} setBW={setBW} tool={tool} setTool={setTool} tv={textVal} sTV={setTV} font={font} setFont={setFont} />
       <Box
         sx={{
           width: iW - 30,
